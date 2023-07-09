@@ -8,7 +8,7 @@ Script to install needed system components for running a Docker environment on a
 sudo ./install-docker.sh
 ```
 ### install-portainer.sh
-Script to install Portainer to a local mapped volume and allow for management of Docker installs via web GUI via HTTPS on port 9443. Must be run with elevated privlidges:
+Script to install Portainer to a locally mapped volume and allow for management of Docker installs via web GUI via HTTPS on port 9443. Must be run with elevated privlidges:
 ```
 sudo ./install-portainer.sh
 ```
