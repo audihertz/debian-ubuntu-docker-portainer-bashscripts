@@ -17,3 +17,10 @@ sudo docker run -d \
   -v "$volume_path":/data \
   portainer/portainer-ce:latest 
 #
+# CHECK IF PORTAINER IS RUNNING
+if sudo docker ps --filter "name=portainer" --format "{{.Names}}" | grep -q "portainer"; then
+  echo "Portainer is running."
+else
+  echo "Portainer failed to start."
+fi
+#
