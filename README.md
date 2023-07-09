@@ -3,12 +3,12 @@ Various bash scripts for Ubuntu/Debian installs
 
 ## Script Descriptions
 ### install-docker.sh
-Script to install needed system components for running a docker environment on a local machine, downloaded and starting docker, and then running a simple "Hello World" test to confirm that docker has been successfully installed.  Must be run with elevated privlidges:
+Script to install needed system components for running a Docker environment on a local machine, downloading and starting Docker, and then running a simple "Hello World" test to confirm that Docker has been successfully installed.  Must be run with elevated privlidges:
 ```
 sudo ./install-docker.sh
 ```
 ### install-portainer.sh
-Script to install Portainer to a mapped volume and allow for management of Docker installs via web GUI via HTTPS on port 9443. Must be run with elevated privlidges:
+Script to install Portainer to a local mapped volume and allow for management of Docker installs via web GUI via HTTPS on port 9443. Must be run with elevated privlidges:
 ```
 sudo ./install-portainer.sh
 ```
