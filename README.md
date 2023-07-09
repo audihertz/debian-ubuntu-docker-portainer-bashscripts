@@ -12,3 +12,8 @@ Script to install Portainer to a mapped volume and allow for management of Docke
 ```
 sudo ./install-portainer.sh
 ```
+### upgrade-portainer.sh
+Script to automatically upgrade Portainer using the same parameters as defined in the "install-portainer.sh" script. This will stop the Docker instance, remove it, pull the most recent Docker image, and start Portainer again. Must be run with elevated privlidges:
+```
+sudo ./upgrade-portainer.sh
+```
