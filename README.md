@@ -1,9 +1,9 @@
 # Debian/Ubuntu Bash Scripts for Docker and Portainer
-These are a collection of bash scripts for setting up Docker and Portainer on Debian/Ubuntu systems. 
+These are a collection of bash scripts for setting up Docker and Portainer on Debian/Ubuntu systems. I use these on Ubuntu and Debian ([openmediavault](https://github.com/openmediavault/openmediavault)) systems for quick and easy setup and maintenance. 
 
 ## Script Descriptions
 ### [install-docker.sh](install-docker.sh)
-Script to install needed system components for running a Docker environment on a local machine, downloading and starting Docker, and then running a simple "Hello World" test to confirm that Docker has been successfully installed.  Must be changed to an executable and run with elevated privlidges:
+Script to install needed system components for running a Docker environment on a local machine, downloading and starting Docker, and then running a simple "Hello World" test to confirm that Docker has been successfully installed. Once Docker is installed, it can be upgraded through standard system updates. This script must be changed to an executable and run with elevated privlidges:
 ```
 sudo chmod +x install-docker.sh
 sudo ./install-docker.sh
