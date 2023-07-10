@@ -20,7 +20,7 @@ sudo chmod +x install-portainer.sh
 sudo ./install-portainer.sh
 ```
 ### [upgrade-portainer.sh](upgrade-portainer.sh)
-Script to automatically upgrade Portainer using the same parameters as defined in the "install-portainer.sh" script. This will stop the Docker instance, remove it, pull the most recent Docker image, and start Portainer again with two variables defined that can be changed to match your install:
+Script to automatically upgrade Portainer using the same parameters as defined in the "install-portainer.sh" script. This will stop the Docker instance, remove it, and start Portainer again, which will pull the updated image if one is available. This script has two variables defined that can be changed to match your install:
 ```
 $timezone
 $volume_path
