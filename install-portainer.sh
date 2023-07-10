@@ -4,7 +4,7 @@
 #
 # SET VARIABLES
 timezone="America/Vancouver"
-volume_path="/mnt/VOLUMES/_PORTAINER"
+volume_path="/mnt/volumes/portainer"
 #
 # START PORTAINER
 sudo docker run -d \
