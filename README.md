@@ -1,5 +1,5 @@
-# debian-ubuntu-bash-scripts
-Various bash scripts for Ubuntu/Debian installs
+# Debian/Ubuntu Bash Scripts for Docker and Portainer
+These are a collection of scripts for setting up Docker and Portainer on Debian/Ubuntu systems. 
 
 ## Script Descriptions
 ### install-docker.sh
