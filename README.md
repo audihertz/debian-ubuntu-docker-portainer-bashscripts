@@ -1,5 +1,5 @@
 # Debian/Ubuntu Bash Scripts for Docker and Portainer
-These are a collection of bash scripts for setting up Docker and Portainer on Debian-based systems. I actively use these on Ubuntu, Debian ([openmediavault](https://github.com/openmediavault/openmediavault)), and Raspberry Pi (64-bit) OS systems for quick and easy setup and maintenance. 
+These are a collection of bash scripts for setting up Docker and Portainer on Debian-based systems. I actively use these on Ubuntu, Debian ([openmediavault](https://github.com/openmediavault/openmediavault)), and Raspberry Pi (64-bit) OS installs for quick and easy setup and maintenance. 
 
 ## Script Descriptions
 ### [install-docker.sh](install-docker.sh)
