@@ -9,7 +9,7 @@ sudo chmod +x install-docker.sh
 sudo ./install-docker.sh
 ```
 ### [install-portainer.sh](install-portainer.sh)
-Script to install Portainer to a locally mapped volume and allow for management of Docker installs via web GUI via HTTPS on port 9443 and verifies if Portainer is running or failed to start. The script has two variables defined that can be changed to match your install:
+Script to pull and start Portainer for a brand new installation to a locally mapped volume and allow for management of Docker installs via web GUI via HTTPS on port 9443 and verifies if Portainer is running or failed to start. The script has two variables defined that can be changed to match your install:
 ```
 $timezone
 $volume_path
@@ -20,7 +20,7 @@ sudo chmod +x install-portainer.sh
 sudo ./install-portainer.sh
 ```
 ### [upgrade-portainer.sh](upgrade-portainer.sh)
-Script to automatically upgrade Portainer using the same parameters as defined in the "install-portainer.sh" script. This will stop the Docker instance, remove it, start Portainer again, which will pull the updated image if one is available, and then verifies if Portainer is running or failed to start. This script has two variables defined that can be changed to match your install:
+Script to automate upgrading Portainer using the same parameters as defined in the "install-portainer.sh" script. This will stop the Docker instance of Portainer, remove Portainer, pull the updated image if one is available, start Portainer again, and then verifies if Portainer is running or failed to start. This script has two variables defined that can be changed to match your install:
 ```
 $timezone
 $volume_path
