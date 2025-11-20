@@ -1,12 +1,12 @@
 #!/bin/bash
 #
+# https://docs.portainer.io/start/install-ce/server/docker/linux
+#
 # Exit on error
 set -e
 #
 # SET VARIABLES
 # -------------
-# Timezone (change if needed)
-TZ=${TZ:-Etc/UTC}
 # Storage location variable (leave blank for default Docker volume)
 VOLUME_PATH=""
 # -------------
@@ -23,9 +23,9 @@ fi
 # Run Portainer container
 docker run -d \
     -p 9443:9443 \
-    -e TZ=$TZ \
     --name portainer \
     --restart=always \
+    -v /etc/localtime:/etc/localtime:ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     $volume_option \
     portainer/portainer-ce:latest
