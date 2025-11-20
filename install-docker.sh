@@ -1,26 +1,44 @@
 #!/bin/bash
 #
-# https://docs.docker.com/engine/install/debian/
+# Reference: https://docs.docker.com/engine/install/debian/
 #
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+# Remove any old versions
+sudo apt-get remove -y docker docker-engine docker.io containerd runc
 #
-sudo apt-get update \
+# Update the package index
+sudo apt-get update
 #
-sudo apt-get install -y ca-certificates curl gnupg \
+# Install required packages
+sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
 #
-sudo install -m 0755 -d /etc/apt/keyrings \
+# Set up the Docker repository
+sudo mkdir -p /etc/apt/keyrings
 #
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 #
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 #
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
+# Update the package index
+sudo apt-get update
 #
-sudo apt-get update \
+# Install Docker Engine, CLI, and plugins
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 #
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
+# Add the current user to the Docker group
+sudo usermod -aG docker $USER
 #
-sudo docker run hello-world \
+# Test the installation
+sudo docker run hello-world
 #
+# Check if the user has been added successfully
+if groups $USER | grep -q 'docker'; then
+    echo "User added to Docker group successfully."
+else
+    echo "Failed to add user to Docker group. Please add manually using: sudo usermod -aG docker $USER"
+fi
+
+echo "Please log out and log back in to apply group changes."
