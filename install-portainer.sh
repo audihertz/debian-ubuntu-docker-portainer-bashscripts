@@ -3,19 +3,21 @@
 # Exit on error
 set -e
 #
-# Define timezone (change if needed)
-TZ=${TZ:-America/Vancouver}
-#
+# SET VARIABLES
+# -------------
+# Timezone (change if needed)
+TZ=${TZ:-Etc/UTC}
 # Storage location variable (leave blank for default Docker volume)
-STORAGE_LOCATION=""  # change this to your custom location or leave blank for default
+VOLUME_PATH=""
+# -------------
 #
 # Prepare the volume option based on the storage location provided
-if [ -z "$STORAGE_LOCATION" ]; then
+if [ -z "$VOLUME_PATH" ]; then
     docker volume create portainer_data
     volume_option="-v portainer_data:/data"
 else
-    mkdir -p "$STORAGE_LOCATION"
-    volume_option="-v $STORAGE_LOCATION:/data"
+    mkdir -p "$VOLUME_PATH"
+    volume_option="-v $VOLUME_PATH:/data"
 fi
 #
 # Run Portainer container
