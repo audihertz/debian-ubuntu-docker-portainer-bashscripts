@@ -1,25 +1,36 @@
 #!/bin/bash
 #
-# https://docs.portainer.io/start/install-ce/server/docker/linux 
+# Exit on error
+set -e
 #
-# SET VARIABLES
-timezone="America/Vancouver"
-volume_path="/mnt/volumes/portainer"
+# Define timezone (change if needed)
+TZ=${TZ:-America/Vancouver}
 #
-# START PORTAINER
-sudo docker run -d \
-  -p 9443:9443 \
-  -e TZ="$timezone" \
-  --name portainer \
-  --restart=always \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v "$volume_path":/data \
-  portainer/portainer-ce:latest 
+# Storage location variable (leave blank for default Docker volume)
+STORAGE_LOCATION=""  # change this to your custom location or leave blank for default
 #
-# CHECK IF PORTAINER IS RUNNING
-if sudo docker ps --filter "name=portainer" --format "{{.Names}}" | grep -q "portainer"; then
-  echo "Portainer is running."
+# Prepare the volume option based on the storage location provided
+if [ -z "$STORAGE_LOCATION" ]; then
+    docker volume create portainer_data
+    volume_option="-v portainer_data:/data"
 else
-  echo "Portainer failed to start."
+    mkdir -p "$STORAGE_LOCATION"
+    volume_option="-v $STORAGE_LOCATION:/data"
 fi
 #
+# Run Portainer container
+docker run -d \
+    -p 9443:9443 \
+    -e TZ=$TZ \
+    --name portainer \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    $volume_option \
+    portainer/portainer-ce:latest
+#
+# Check if the container is running
+if docker container inspect portainer &> /dev/null; then
+    echo "Portainer is running."
+else
+    echo "Failed to start Portainer."
+fi
