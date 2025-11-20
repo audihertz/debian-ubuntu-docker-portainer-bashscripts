@@ -1,34 +1,47 @@
 #!/bin/bash
 #
-# https://docs.portainer.io/start/upgrade/docker 
+# https://docs.portainer.io/start/upgrade/docker
+#
+# Exit on error
+set -e
 #
 # SET VARIABLES
-timezone="America/Vancouver"
-volume_path="/mnt/volumes/portainer"
+# -------------
+# Timezone (change if needed)
+TZ=${TZ:-Etc/UTC}
+# Storage location variable (leave blank for default Docker volume)
+VOLUME_PATH=""
+# -------------
 #
-# STOP PORTAINER
-sudo docker stop portainer \
+# Stop and remove the existing Portainer container
+docker stop portainer || true
+docker rm portainer || true
 #
-# REMOVE PORTAINER
-sudo docker rm portainer \
+# Pull the latest Portainer image
+docker pull portainer/portainer-ce:latest
 #
-# PULL LATEST IMAGE OF PORTAINER
-sudo docker pull portainer/portainer-ce:latest \
-#
-# START PORTAINER AGAIN
-sudo docker run -d \
-  -p 9443:9443 \
-  -e TZ="$timezone" \
-  --name portainer \
-  --restart=always \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v "$volume_path":/data \
-  portainer/portainer-ce:latest
-#
-# CHECK IF PORTAINER IS RUNNING
-if sudo docker ps --filter "name=portainer" --format "{{.Names}}" | grep -q "portainer"; then
-  echo "Portainer is running."
+# Prepare the volume option based on the storage location provided
+if [ -z "$VOLUME_PATH" ]; then
+    docker volume create portainer_data
+    volume_option="-v portainer_data:/data"
 else
-  echo "Portainer failed to start."
+    mkdir -p "$VOLUME_PATH"
+    volume_option="-v $VOLUME_PATH:/data"
 fi
 #
+# Run Portainer container
+docker run -d \
+    -p 9443:9443 \
+    -e TZ="$timezone" \
+    --name portainer \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    $volume_option \
+    portainer/portainer-ce:latest
+#
+# Check if the container is running
+if docker container inspect portainer &> /dev/null; then
+    echo "Portainer has been upgraded and is running."
+else
+    echo "Failed to upgrade or start Portainer."
+fi
