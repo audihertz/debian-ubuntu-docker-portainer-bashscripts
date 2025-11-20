@@ -7,8 +7,6 @@ set -e
 #
 # SET VARIABLES
 # -------------
-# Timezone (change if needed)
-TZ=${TZ:-Etc/UTC}
 # Storage location variable (leave blank for default Docker volume)
 VOLUME_PATH=""
 # -------------
@@ -20,7 +18,7 @@ docker rm portainer || true
 # Pull the latest Portainer image
 docker pull portainer/portainer-ce:latest
 #
-# Prepare the volume option based on the storage location provided
+# Prepare the volume option based on the $VOLUME_PATH provided
 if [ -z "$VOLUME_PATH" ]; then
     docker volume create portainer_data
     volume_option="-v portainer_data:/data"
@@ -32,9 +30,9 @@ fi
 # Run Portainer container
 docker run -d \
     -p 9443:9443 \
-    -e TZ="$timezone" \
     --name portainer \
     --restart=always \
+    -v /etc/localtime:/etc/localtime:ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     $volume_option \
     portainer/portainer-ce:latest
